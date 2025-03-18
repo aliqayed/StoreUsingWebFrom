@@ -1,0 +1,506 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="new_store.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png" />
+    <title>tabibsoft - برنامج المخزن</title>
+    <link href="/ddl_search/fm.selectator.jquery.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <link href="/plugins/bower_components/jqueryui/jquery-ui.min.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="/plugins/bower_components/bootstrap-rtl-master/dist/css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <!-- Sidebar menu -->
+    <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet" />
+    <!-- Form Select -->
+    <link href="/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/plugins/bower_components/dropify/dist/css/dropify.min.css" />
+    
+    <!-- dataTables -->
+    <link href="/data_table_files/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="/data_table_files/css/buttons.dataTables.css" rel="stylesheet" />
+
+    <!-- Draggable-panel -->
+    <link href="/plugins/bower_components/lobipanel/dist/css/lobipanel.min.css" rel="stylesheet" />
+    <!-- This is a Animation CSS -->
+    <link href="/css/animate.css" rel="stylesheet" />
+    <!-- This is a Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- toastr-->
+    <link href="/toastr/toastr.min.css" rel="stylesheet" />
+    <!-- color CSS you can use different color css from css/colors folder -->
+    <!-- We have chosen the skin-blue (blue.css) for this starter
+      page. However, you can choose any other skin from folder css / colors .
+      -->
+    <link href="/css/colors/blue.css" id="theme" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+    <style>
+        .MyCalendar {
+            color: black;
+            background-color: #fdcfc1;
+        }
+
+        th {
+            text-align: center;
+        }
+    </style>
+
+    <style>
+        .table , .datatable{
+            direction:rtl !important;
+        }
+        .table th, .table tr, .table td, .datatable th, .datatable tr, .datatable td, .grid th, .grid tr, .grid td{
+            text-align:center !important;
+            color:black !important;
+        }
+
+        .table_multi th, .table_multi tr, .table_multi td, .datatable_multi th, .datatable_multi tr, .datatable_multi td, .grid th, .grid tr, .grid td{
+            text-align:center !important;
+            color:black !important;
+        }
+        
+
+        .grid_style {
+            text-align:center !important;
+            color:black !important;
+        }
+        .color_red{
+            color:#AE1414 !important;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="content-wrapper">
+    <form id="form1" runat="server">
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+      <%--  <div class="preloader">
+            <div class="cssload-speeding-wheel"></div>
+        </div>--%>
+        <div id="wrapper">
+            <div class="menu-togglers">
+                <a class="navbar-toggle hidden-sm hidden-md hidden-lg" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="ti-menu"></i>
+                </a>
+                <a class="open-close  hidden-xs">
+                    <i class="icon-arrow-left-circle ti-menu"></i>
+                    <span class="hide-menu">القائمة </span>
+                </a>
+            </div>
+            <!-- Left navbar-header -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse collapse slimscrollsidebar">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="/default.aspx" class="">
+                                <i class="linea-icon linea-basic fa-fw" data-icon="Z"></i>
+                                <span class="hide-menu">الرئيسية </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../javascript:void(0);" class="">
+                                <i class="icon-badge fa-fw text-danger" data-icon="0"></i>
+                                <span class="hide-menu text-danger">الاصناف <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-danger pull-right">10 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="../items/items.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; كارت الصنف</a> </li>
+                                <li><a href="../items/companies.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; الشركات</a> </li>
+                                <li><a href="../items/stores.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; المخازن</a> </li>
+                                <li><a href="../items/item_transfer.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; نقل صنف</a> </li>
+                                <%--<li> <a href="../items/classification.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; التصنيفات</a> </li>--%>
+                                <li><a href="../items/sort.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; الأنواع</a> </li>
+                                <li><a href="../items/damage.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; الهالك</a> </li>
+                                <li><a href="../items/item_unit.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; بحث أصناف</a> </li>
+                                <li><a href="../items/item_move.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; حركة صنف</a> </li>
+                                <li><a href="../items/items_Report.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp;  تقرير حركة صنف</a> </li>
+                                <li><a href="../items/stock_order.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; إضافة جرد مخزن</a> </li>
+                                <li><a href="../items/stock_order_report.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; تقرير جرد مخزن</a> </li>
+                                <li><a href="../items/code2.aspx"><i class="fa fa-circle-o text-danger"></i>&nbsp; باركود</a> </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href=".javascript:void(0);" class="">
+                                <i class="linea-icon linea-ecommerce fa-fw text-success" data-icon="m"></i>
+                                <span class="hide-menu text-success">المشتريات <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-success pull-right">6 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="../suppliers/buy_page.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; فاتورة المشتريات</a> </li>
+                                <li><a href="../suppliers/back.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; مرتجع مشتريات</a> </li>
+                                <li><a href="../suppliers/suppliers.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; بيانات موردين</a> </li>
+                                <li><a href="../suppliers/supplier_dept.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; دفعات الموردين</a> </li>
+                                <li><a href="../suppliers/supplier_move.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; حركة الموردين</a> </li>
+                                <li><a href="../suppliers/supplier_move_1.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; كشف حساب الموردين</a> </li>
+                                <li><a href="../suppliers/supplier_move_totals.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; كشف حساب مورد اجمالى</a> </li>
+                                <li><a href="../suppliers/supplier_total_accounts.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; كشف حساب الموردين اجمالى</a> </li>
+                                <li><a href="../suppliers/supplier_checks.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  شيكات موردين</a> </li>
+                                 <li><a href="../reports/Supplier_Check_Report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  تقرير شيكات الموردين</a> </li>
+                                <li><a href="../suppliers/discount_notice.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  اشعار خصم مورد</a> </li>
+                                <li><a href="../suppliers/supplier_sort.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp; ربط الموردين بالانواع</a> </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="">
+                                <i class="linea-icon linea-ecommerce fa-fw text-info" data-icon="Z"></i>
+                                <span class="hide-menu text-info">المبيعات <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-info pull-right">8 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="../sales/sales.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; فاتورة المبيعات</a> </li>
+                                <li><a href="../sales/sales_back.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; مرتجع مبيعات</a> </li>
+                                <li><a href="../sales/prevent_back_item.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; الاصناف خارج المرتجع</a> </li>
+                                <%--<li><a href="../sales/sales_order.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; بيان اسعار</a> </li>--%>
+                                <li><a href="../sales/Customers.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; بيانات العملاء</a> </li>
+                                <li><a href="../sales/CustomerDepts.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; ديون العملاء</a> </li>
+                                <li><a href="../sales/customer_move.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp;  حركة العملاء</a> </li>
+                                <li><a href="../sales/customer_move1.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; كشف حساب العملاء</a> </li>
+                                <li><a href="../sales/customer_move_total.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; كشف حساب  عميل اجمالى</a> </li>
+                                <li><a href="../sales/customer_total_accounts.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; كشف حساب  العملاء اجمالى</a> </li>
+                                <li><a href="../sales/add_govern.aspx"><i class="fa fa-circle-o text-info"></i>&nbsp; اضافة محافظات </a></li>
+                                <li><a href="../sales/customer_checks.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  شيكات العملاء</a> </li>
+                                <li><a href="../reports/Customer_Check_Report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;    تقرير  شيكات العملاء</a> </li>
+
+                                <li><a href="../sales/discount_notice_customer.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  اشعار خصم عميل</a> </li>
+                            </ul>
+                        </li>
+                        <%-- <li> 
+                        <a href="../javascript:void(0);" class="">
+                            <i class="icon-people fa-fw text-inverse" data-icon="7"></i> 
+                            <span class="hide-menu text-inverse"> الموظفين <span class="fa arrow"></span> 
+                            <span class="label label-rouded label-inverse pull-right"> 5 </span></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li> <a href="../employees/employee.aspx"><i class="fa fa-circle-o text-inverse"></i>&nbsp;بيانات الموظفين</a> </li>
+                            <li> <a href="../employees/emp_report.aspx"><i class="fa fa-circle-o text-inverse"></i>&nbsp; تقارير الموظفين</a> </li>
+                        </ul>
+                    </li>--%>
+                        <li>
+                            <a href="../javascript:void(0);" class="">
+                                <i class="linea-icon linea-ecommerce fa-fw text-purple" data-icon="S"></i>
+                                <span class="hide-menu text-purple">تقارير  <span class="fa arrow"></span>
+                                <span class="label label-rouded label-purple pull-right">3 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="../reports/buy_reports.aspx"><i class="fa fa-circle-o text-purple"></i>&nbsp; تقارير</a> </li>
+                                <li><a href="../reports/sales_report.aspx"><i class="fa fa-circle-o text-purple"></i>&nbsp; تحليل المبيعات</a> </li>
+                                <li><a href="../reports/buy_analysis.aspx"><i class="fa fa-circle-o text-purple"></i>&nbsp; تحليل المشتريات</a> </li>
+                                <li><a href="../reports/ExpensesReport.aspx"><i class="fa fa-circle-o text-purple"></i>&nbsp; تقرير المصروفات</a> </li>
+                                <li><a href="../sales/customer_report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  تقرير العملاء</a> </li>
+                                 <li><a href="/reports/Customer_Payment_Report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;تقرير مدفوعات العملاء </a></li>
+                                <li><a href="../suppliers/supplier_report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  تقرير الموردين</a> </li>
+                                 <li><a href="../reports/Supplier_Payment_Report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;  تقرير مدفوعات الموردين</a> </li>
+                                <li><a href="/reports/acounts.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;تقرير الحسابات </a></li>
+                                <li><a href="/reports/dialy_report.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;تقرير يومي </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href=".javascript:void(0);" class="">
+                                <i class="linea-icon linea-ecommerce fa-fw text-success" data-icon="m"></i>
+                                <span class="hide-menu text-success">اذونات الخزنة <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-success pull-right">4 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="/TreasuryBills/Expenses.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;المصروفات </a></li>
+                                <li><a href="/TreasuryBills/add_expenses.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;اضافة مصروف </a></li>
+                                <li><a href="/TreasuryBills/PersonalDrawings.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;السحب والإيداع </a></li>
+                                  <li><a href="/TreasuryBills/tea.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;الشاى </a></li>
+                                <li><a href="/TreasuryBills/stocks_transfer.aspx"><i class="fa fa-circle-o text-success"></i>&nbsp;تحويلات الخزنة  </a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="../javascript:void(0);" class="">
+                                <i class="linea-icon linea-ecommerce fa-fw text-megna" data-icon="/"></i>
+                                <span class="hide-menu text-megna">حسابات <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-megna pull-right">6 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <%--<li><a href="../commerce/stock_report.aspx"><i class="fa fa-circle-o text-megna"></i>&nbsp; حركة الخزنة</a> </li>--%>
+                                <%--<li><a href="../commerce/daily_account.aspx"><i class="fa fa-circle-o text-megna"></i>&nbsp; حساب يومى</a> </li>--%>
+                                <li><a href="../commerce/add_stock.aspx"><i class="fa fa-circle-o text-megna"></i>&nbsp; اضافة خزن</a> </li>
+                                <li><a href="../commerce/stock_trnsfer_movement.aspx"><i class="fa fa-circle-o text-megna"></i>&nbsp; حركة الخزنة</a> </li>
+                                <li><a href="../commerce/general_stock_report.aspx"><i class="fa fa-circle-o text-megna"></i>&nbsp; الحركة الاجمالية لخزنة</a> </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="../javascript:void(0);" class="">
+                                <i class="linea-icon linea-basic fa-fw text-warning" data-icon="P"></i>
+                                <span class="hide-menu text-warning">الإدارة <span class="fa arrow"></span>
+                                    <span class="label label-rouded label-warning pull-right">5 </span></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="../employees/employee.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp;  اضافة موظف</a> </li>
+                                <li><a href="../settings/backup_restore.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp; نسخة احتياطية</a> </li>
+                                <li><a href="../setting.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp;  اعدادات الطباعة</a> </li>
+                                <li><a href="../settings/Groups.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp; مجموعات وصلاحيات</a> </li>
+                                <li><a href="../settings/Users.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp; إضافة مستخدم</a> </li>
+                                <li><a href="../settings/banks.aspx"><i class="fa fa-circle-o text-warning"></i>&nbsp; البنوك</a> </li>
+                            </ul>
+                        </li>
+                        <%--<li> 
+                        <a href=".javascript:void(0);" class="">
+                            <i class="linea-icon linea-ecommerce fa-fw text-success" data-icon="m"></i> 
+                            <span class="hide-menu text-success"> الطباعة <span class="fa arrow"></span> 
+                            <span class="label label-rouded label-success pull-right"> 7 </span></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+
+                              </ul>
+                    </li>--%>
+                        <li>
+
+                            <a href="/login.aspx" class="">
+                                <i class="icon-logout fa-fw text-blue"></i>
+                                <span class="hide-menu text-blue">خروج</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Left navbar-header end -->
+            <!-- Page Content -->
+            <div>
+
+
+                <div id="page-wrapper">
+                    <!-- /.container-fluid -->
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+
+                     <div class="panel panel-danger">
+                     <div style="font-weight: 700; font-style: italic;color:red;"
+                        dir="rtl">
+                      
+                        &nbsp;&nbsp;
+                         شيكات الموردين : 
+                          <marquee behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();" direction="right" >
+
+                              <asp:DataList ID="DataList4" runat="server" DataSourceID="sql_order_buy" RepeatDirection="Horizontal" DataKeyField="id">
+                               
+                                <ItemTemplate >
+المورد: <asp:Label Text='<%# Eval("supplier_name") %>' runat="server" id="supplier_nameLabel"/>
+رقم الحافظه: <asp:Label Text='<%# Eval("id") %>' runat="server" id="idLabel"/>
+المبلغ: <asp:Label Text='<%# Eval("value") %>' runat="server" id="valueLabel"/>
+تاريخ الاستحقاق: <asp:Label Text='<%# Eval("due_date") %>' runat="server" id="due_dateLabel"/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</ItemTemplate>
+                                </asp:DataList>
+
+                          </marquee>
+
+
+                         <asp:SqlDataSource ID="sql_order_buy" runat="server" ConnectionString='<%$ ConnectionStrings:ahmedStoreRConnectionString1 %>' SelectCommand="SELECT supplier.supplier_name, supplier_check.id, supplier_check_report.value, supplier_check_report.due_date FROM supplier_check INNER JOIN supplier ON supplier_check.supplier_id = supplier.id INNER JOIN supplier_check_report ON supplier_check.id = supplier_check_report.check_id  WHERE (DATEDIFF(day, GETDATE(),due_date) BETWEEN 0 AND 5) AND (is_paid <> 'true')"></asp:SqlDataSource>
+                   </div>
+                         
+                          </div>
+
+
+
+                    <div class="panel panel-danger">
+                     <div style="font-weight: 700; font-style: italic;color:red;"
+                        dir="rtl">
+                      
+                        &nbsp;&nbsp;
+                         شيكات العملاء : 
+                          <marquee behavior="scroll" direction="right" onmouseover="this.stop();" onmouseout="this.start();" direction="right" >
+
+                              <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" RepeatDirection="Horizontal" DataKeyField="id">
+                               
+                                <ItemTemplate >
+العميل: <asp:Label Text='<%# Eval("customer_name") %>' runat="server" id="customer_nameLabel"/>
+رقم الحافظه: <asp:Label Text='<%# Eval("id") %>' runat="server" id="idLabel"/>
+المبلغ: <asp:Label Text='<%# Eval("value") %>' runat="server" id="valueLabel"/>
+تاريخ الاستحقاق: <asp:Label Text='<%# Eval("due_date") %>' runat="server" id="due_dateLabel"/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</ItemTemplate>
+                                </asp:DataList>
+
+                          </marquee>
+
+
+                         <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+                             ConnectionString='<%$ ConnectionStrings:ahmedStoreRConnectionString1 %>'
+                             SelectCommand="SELECT customer.customer_name, customer_check.id, customer_check_report.value, customer_check_report.due_date FROM customer_check INNER JOIN customer ON customer_check.customer_id = customer.id INNER JOIN customer_check_report ON customer_check.id = customer_check_report.check_id WHERE (DATEDIFF(day, GETDATE(), customer_check_report.due_date) BETWEEN 0 AND 5) AND (customer_check_report.paid <> 'true')"></asp:SqlDataSource>
+                   </div>
+                         
+                          </div>
+
+
+                    <footer class="footer text-center">2020 &copy; جميع حقوق الملكية محفوظة لشركة TabibSoft  </footer>
+                </div>
+
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+
+
+        <!-- jQuery -->
+        <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/plugins/bower_components/jqueryui/jquery-ui.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/bootstrap/dist/js/tether.min.js"></script>
+        <script src="/plugins/bower_components/bootstrap-rtl-master/dist/js/bootstrap-rtl.min.js"></script>
+        <!-- Sidebar menu -->
+        <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+        <!-- Form Select -->
+        <script src="/plugins/bower_components/custom-select/custom-select.min.js" type="text/javascript"></script>
+        <script src="/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+        <!-- Image input -->
+        <script src="/plugins/bower_components/dropify/dist/js/dropify.min.js" type="text/javascript"></script>
+
+
+        <!-- dataTables -->
+        <script src="/data_table_files/js/jquery.dataTables.min.js"></script>
+        <script src="/data_table_files/js/dataTables.buttons.min.js"></script>
+
+        <script src="/data_table_files/js/jszip.min.js"></script>
+
+        <!-- excel -->
+        <script src="/data_table_files/js/pdfmake.min.js"></script>
+
+        <!-- pdf -->
+        <script src="/data_table_files/js/buttons.html5.min.js"></script>
+
+        <!-- print -->
+        <script src="/data_table_files/js/buttons.print.min.js"></script>
+
+        <!-- colVis -->
+        <script src="/data_table_files/js/buttons.colVis.min.js"></script>
+
+        
+        <!-- Draggable-panel -->
+        <script src="/plugins/bower_components/lobipanel/dist/js/lobipanel.min.js"></script>
+        <script src="/js/js.js"></script>
+        <!--Slimscroll JavaScript For custom scroll-->
+        <script src="/js/jquery.slimscroll.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="/js/custom.js"></script>
+
+        <script src="/ddl_search/fm.selectator.jquery.js"></script>
+        <script>
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_endRequest(function (s, e) {
+                var $DropDownList1 = $('.ddl_search');
+                if ($DropDownList1.data('selectator') === undefined) {
+                    $DropDownList1.selectator({
+                        labels: {
+                            search: 'Search here...'
+                        }
+                    });
+                }
+            });
+            var $DropDownList1 = $('.ddl_search');
+            if ($DropDownList1.data('selectator') === undefined) {
+                $DropDownList1.selectator({
+                    labels: {
+                        search: 'Search here...'
+                    }
+                });
+            }
+        </script>
+        <%--<script>
+
+            $("input[type=text]").mousedown(function () {
+                $(this).select();
+                return false;
+            });
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_endRequest(function (s, e) {
+
+                $("input[type=text]").mousedown(function () {
+                    $(this).select();
+                    return false;
+                });
+
+
+            });
+        </script>--%>
+        <%--<script src="/toastr/toastr.min.js" type="text/javascript"></script>--%>
+        <script src="/toastr/toastr.js"></script>
+        <script type="text/javascript">
+
+            function Success(message) {
+                Command: toastr["success"](message)
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+            function Error_alert(message) {
+                Command: toastr["error"](message)
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+        </script>
+        <script type="text/javascript">
+            var submit = 0;
+            function CheckDouble() {
+                if (++submit > 1) {
+                    //alert('This sometimes takes a few seconds - please be patient.');
+                    submit = 0;
+                    return false;
+                }
+                
+                
+                
+
+            }
+        </script>
+    </form>
+</body>
+</html>
